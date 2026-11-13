@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: nexo-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/nexo}
+    username: ${DB_USERNAME:nexo}
+    password: ${DB_PASSWORD:nexo}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

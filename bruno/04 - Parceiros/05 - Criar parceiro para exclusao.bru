@@ -1,0 +1,45 @@
+meta {
+  name: Criar parceiro para exclusão
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/v1/parceiros
+  body: json
+  auth: none
+}
+
+script:pre-request {
+  const timestamp = Date.now().toString();
+  bru.setEnvVar("parceiroExclusaoDocumento", "8" + timestamp);
+  bru.setEnvVar("parceiroExclusaoEmail", "exclusao." + timestamp + "@nexo.local");
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "nome": "Parceiro temporário Bruno",
+    "documento": "{{parceiroExclusaoDocumento}}",
+    "email": "{{parceiroExclusaoEmail}}",
+    "telefone": "(21) 99999-0003",
+    "tipo": "CLIENTE",
+    "ativo": true
+  }
+}
+
+script:post-response {
+  if (res.status === 201 && res.body.id) {
+    bru.setEnvVar("parceiroExclusaoId", res.body.id);
+  }
+}
+
+tests {
+  test("retorna HTTP 201", function() {
+    expect(res.status).to.equal(201);
+  });
+}
+

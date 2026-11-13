@@ -1,0 +1,41 @@
+meta {
+  name: Criar conta para exclusão
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/api/v1/contas
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "descricao": "Conta temporária para exclusão",
+    "valor": 275.00,
+    "tipo": "RECEBER",
+    "categoria": "Serviços",
+    "vencimento": "2026-12-28",
+    "recorrencia": "UNICA",
+    "observacao": "Será excluída pelo próximo request",
+    "parceiroId": {{parceiroId}}
+  }
+}
+
+script:post-response {
+  if (res.status === 201 && res.body.id) {
+    bru.setEnvVar("contaExclusaoId", res.body.id);
+  }
+}
+
+tests {
+  test("retorna HTTP 201", function() {
+    expect(res.status).to.equal(201);
+  });
+}
+

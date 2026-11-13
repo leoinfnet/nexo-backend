@@ -1,0 +1,23 @@
+meta {
+  name: Despesas por categoria
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/v1/relatorios/financeiro/despesas-por-categoria
+  body: none
+  auth: none
+}
+
+params:query {
+  dataInicio: {{dataInicio}}
+  dataFim: {{dataFim}}
+}
+
+tests {
+  test("retorna HTTP 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}
+

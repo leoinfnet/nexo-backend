@@ -1,0 +1,41 @@
+meta {
+  name: Criar conta para cancelamento
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/v1/contas
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "descricao": "Conta temporária para cancelamento",
+    "valor": 350.00,
+    "tipo": "PAGAR",
+    "categoria": "Administrativo",
+    "vencimento": "2026-12-22",
+    "recorrencia": "UNICA",
+    "observacao": "Será cancelada pelo próximo request",
+    "parceiroId": {{parceiroId}}
+  }
+}
+
+script:post-response {
+  if (res.status === 201 && res.body.id) {
+    bru.setEnvVar("contaCancelamentoId", res.body.id);
+  }
+}
+
+tests {
+  test("retorna HTTP 201", function() {
+    expect(res.status).to.equal(201);
+  });
+}
+

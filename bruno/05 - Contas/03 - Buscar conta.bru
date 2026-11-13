@@ -1,0 +1,18 @@
+meta {
+  name: Buscar conta por ID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/v1/contas/{{contaId}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("retorna HTTP 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}
+

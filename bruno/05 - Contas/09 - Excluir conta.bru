@@ -1,0 +1,18 @@
+meta {
+  name: Excluir conta
+  type: http
+  seq: 9
+}
+
+delete {
+  url: {{baseUrl}}/api/v1/contas/{{contaExclusaoId}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("retorna HTTP 204", function() {
+    expect(res.status).to.equal(204);
+  });
+}
+

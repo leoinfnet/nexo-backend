@@ -1,0 +1,18 @@
+meta {
+  name: Excluir lançamento
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/api/v1/lancamentos/{{lancamentoId}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("retorna HTTP 204", function() {
+    expect(res.status).to.equal(204);
+  });
+}
+

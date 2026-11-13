@@ -1,0 +1,18 @@
+meta {
+  name: Excluir parceiro
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{baseUrl}}/api/v1/parceiros/{{parceiroExclusaoId}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("retorna HTTP 204", function() {
+    expect(res.status).to.equal(204);
+  });
+}
+

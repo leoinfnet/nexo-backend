@@ -1,0 +1,33 @@
+meta {
+  name: Atualizar parceiro
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/v1/parceiros/{{parceiroId}}
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "nome": "Parceiro Bruno atualizado",
+    "documento": "{{parceiroDocumento}}",
+    "email": "{{parceiroEmail}}",
+    "telefone": "(21) 99999-0002",
+    "tipo": "AMBOS",
+    "ativo": true
+  }
+}
+
+tests {
+  test("retorna HTTP 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}
+

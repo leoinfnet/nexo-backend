@@ -1,0 +1,23 @@
+meta {
+  name: Resumo financeiro
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v1/relatorios/financeiro/resumo
+  body: none
+  auth: none
+}
+
+params:query {
+  dataInicio: {{dataInicio}}
+  dataFim: {{dataFim}}
+}
+
+tests {
+  test("retorna HTTP 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}
+

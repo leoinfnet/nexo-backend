@@ -1,0 +1,33 @@
+meta {
+  name: Atualizar lançamento
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/v1/lancamentos/{{lancamentoId}}
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "descricao": "Aquisição de equipamentos atualizada",
+    "valor": 2890.00,
+    "tipo": "DESPESA",
+    "categoria": "Equipamentos",
+    "dataLancamento": "2026-11-12",
+    "observacao": "Registro atualizado pela coleção Bruno"
+  }
+}
+
+tests {
+  test("retorna HTTP 200", function() {
+    expect(res.status).to.equal(200);
+  });
+}
+
